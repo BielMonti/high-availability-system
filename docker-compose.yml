@@ -1,0 +1,28 @@
+services:
+  web:
+    build: ./service
+    deploy:
+      replicas: 3
+    ports:
+      - "3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  description: "API CRUD"
+  version: "1.0.0"
+  title: "CRUD API"
+servers:
+- url: http://localhost:3000
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /items:
+    post:
+      summary: "Cria um novo item"
+      parameters:
+      - in: "body"
+        name: "item"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+      responses:
+        201:
+          description: "Item criado"
+    get:
+      summary: "Lista todos os items"
+      responses:
+        200:
+          description: "Uma lista dos items"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+  /items/{id}:
+    put:
+      summary: "Atualiza um item"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "item"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+      responses:
+        200:
+          description: "Item atualizado"
+    delete:
+      summary: "Deleta um item"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Item deletado"
